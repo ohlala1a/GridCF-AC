@@ -1,0 +1,32 @@
+{
+  "parents": 207,
+  "physical_states": 230,
+  "task_contexts": 490,
+  "offline_witnesses": 230,
+  "grid": "PEGASE89",
+  "variants": {
+    "BASE": 207,
+    "CFI_rephrase": 79,
+    "CFB_verify2": 79,
+    "CFO_fresh": 79,
+    "CFS_q098": 23,
+    "CFO_stale": 23
+  },
+  "splits": {
+    "train": {
+      "parents": 160,
+      "physical_states": 174,
+      "task_contexts": 284
+    },
+    "valid": {
+      "parents": 17,
+      "physical_states": 22,
+      "task_contexts": 78
+    },
+    "test": {
+      "parents": 30,
+      "physical_states": 34,
+      "task_contexts": 128
+    }
+  }
+}

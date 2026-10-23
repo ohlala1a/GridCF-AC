@@ -1,0 +1,77 @@
+{
+  "dataset": "GridCF-AC",
+  "component": "controlled-variation-corpus",
+  "upstream": {
+    "name": "RestoreBench",
+    "repository": "https://github.com/Mansutti081/RestoreBench",
+    "commit": "accdda5be82047394b13486235501510bf593fd6"
+  },
+  "serialization": {
+    "format": "pandapower JSON",
+    "pandapower_version": "3.4.0",
+    "reference_python": "3.11",
+    "paths_relative_to": "repository root"
+  },
+  "goal_mode": "strict_feasible",
+  "success": "AC convergence and full native feasibility, including generator limits, external-grid limits, connectivity and the hard voltage envelope.",
+  "hard_voltage_envelope_pu": [
+    0.9,
+    1.1
+  ],
+  "separate_voltage_quality_band_pu": [
+    0.95,
+    1.05
+  ],
+  "solver": {
+    "algorithm": "nr",
+    "init": "dc",
+    "max_iteration": 30,
+    "enforce_q_lims": true,
+    "check_connectivity": true,
+    "primary_tolerance_mva": 1e-08,
+    "recovery_tolerance_mva": 1e-06
+  },
+  "action_types": [
+    "GEN_V_SETPOINT",
+    "SHUNT_STEP",
+    "TAP_ADJUSTMENT"
+  ],
+  "budgets": {
+    "source": "per-task fields",
+    "max_meta_steps": 32
+  },
+  "evidence_age": {
+    "0": "current initial operating point",
+    "1": "associated prior operating point; not elapsed seconds"
+  },
+  "provided_evidence_cost_scope": "Offline supplied evidence; charge online queries separately.",
+  "split_unit": "parent scenario, source anchor and initial-state fingerprint",
+  "agent_inputs": [
+    "current physical state or card",
+    "language_note",
+    "provided_evidence",
+    "current diagnostics",
+    "remaining budgets",
+    "observed interaction history"
+  ],
+  "offline_only": [
+    "data/parents.jsonl",
+    "generation and grouping metadata",
+    "validation/"
+  ],
+  "witnesses": "Native action dictionaries in maneuvers; replay under current-state native applicability checks.",
+  "execution_reference": {
+    "environment_protocol": "gridcf-information-actions-strict-v2.2",
+    "commit_changes_state": true,
+    "information_operations_change_state": false,
+    "tool_errors": {
+      "unresolved_errors": "operational failure; no inferred physical verdict",
+      "recoverable_messages": [
+        "could not bracket a converging local-nose load scale",
+        "local-nose diagnostic produced no bus voltages",
+        "snapshot yields no shared retreat evidence; request the legacy retreat explicitly if this snapshot predates the shared trajectory"
+      ]
+    }
+  },
+  "release_scope": "Controlled-variation data and offline repair witnesses; no agent implementation or server evaluation results."
+}
